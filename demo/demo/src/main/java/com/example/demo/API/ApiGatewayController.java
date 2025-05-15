@@ -10,7 +10,6 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
 @Tag(name = "Middleware", description = "Point d'entrée front vers les services Films et Sessions")
 public class ApiGatewayController {
 
@@ -37,7 +36,7 @@ public class ApiGatewayController {
     @Operation(summary = "Récupérer les sessions", description = "Délègue au service de lecture")
     public Mono<ResponseEntity<String>> getSessions() {
         return webClient.get()
-                .uri(serviceLecture + "/sessions")
+                .uri(serviceLecture + "/session")
                 .retrieve()
                 .toEntity(String.class);
     }
