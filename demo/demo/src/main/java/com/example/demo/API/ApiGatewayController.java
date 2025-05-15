@@ -16,8 +16,8 @@ public class ApiGatewayController {
 
     private final WebClient webClient;
 
-    private final String serviceLecture = "http://localhost:8080";
-    private final String serviceEcriture = "http://localhost:8081";
+    private final String serviceLecture  = "http://service1:8080";
+    private final String serviceEcriture = "http://service2:8081";
 
     public ApiGatewayController(WebClient webClient) {
         this.webClient = webClient;
@@ -29,7 +29,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/movies")
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
     //get Movie by id
     @GetMapping("/movies/{id}")
@@ -38,7 +43,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/movies/" + id)
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
     //get Session
@@ -48,7 +58,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/session")
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
     //get Session by id
     @GetMapping("/session/{id}")
@@ -57,7 +72,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/session/" + id)
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
     //get Session by MovieId
     @GetMapping("/session/movie/{id}")
@@ -66,7 +86,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/session/movie/" + id)
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
     //get les movietheaters
     @GetMapping("/movietheaters")
@@ -75,7 +100,12 @@ public class ApiGatewayController {
         return webClient.get()
                 .uri(serviceLecture + "/movietheaters")
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
     @GetMapping("/movies/search")
@@ -101,11 +131,15 @@ public class ApiGatewayController {
         if (city != null) uriBuilder.queryParam("city", city);
         if (sessionDate != null) uriBuilder.queryParam("sessionDate", sessionDate);
 
-        WebClient.RequestHeadersSpec<?> request = webClient.get()
-                .uri(uriBuilder.build().toUri());
-
-
-        return request.retrieve().toEntity(String.class);
+        return webClient.get()
+                .uri(uriBuilder.build().toUri())
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
     @GetMapping("/users")
@@ -122,7 +156,12 @@ public class ApiGatewayController {
 
         return request
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
 
@@ -142,7 +181,12 @@ public class ApiGatewayController {
 
         return request
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
 
@@ -160,7 +204,12 @@ public class ApiGatewayController {
 
         return request
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
     @DeleteMapping("/movies/delete/{id}")
@@ -175,7 +224,12 @@ public class ApiGatewayController {
         }
         return request
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
 
@@ -194,7 +248,12 @@ public class ApiGatewayController {
         }
         return request
                 .retrieve()
-                .toEntity(String.class);
+                .bodyToMono(String.class)
+                .map(body -> ResponseEntity
+                        .ok()
+                        .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                        .contentLength(body.getBytes().length)
+                        .body(body));
     }
 
 
